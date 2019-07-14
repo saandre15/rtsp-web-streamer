@@ -6,7 +6,8 @@ const slave_cores = os.cpus().length - 1;
 module.exports = class Streams extends EventEmitter {
   constructor(core_num) {
     super();
-    this.length = 13;
+    this.aval_streams = [3,4,5,6,7,8,9,11,16];
+    this.length = this.aval_streams.length;
     this.core_num = core_num;
     this.createStream = this.createStream.bind(this);
     this.once('restart', () => {
@@ -15,7 +16,7 @@ module.exports = class Streams extends EventEmitter {
   }
 
   static getLength() {
-    return 13;
+    return 9;
   }
 
   createStream () {
@@ -37,13 +38,12 @@ module.exports = class Streams extends EventEmitter {
       } else if (index === this.core_num) {
         for(let i = 0 ; i < cur ; i++) {
           let total = value + i + 1;
-          // 2 Wireless Camera
-          total > 11 ? total = total + 4 : total;
+          total = this.aval_streams[total];
           newArr.push(total);
           const channel = new Stream({
             name: `channel_${total}`,
-            streamUrl: 'rtsp://184.72.239.149/vod/mp4:BigBuckBunny_115k.mov',
-            //streamUrl: `rtsp://admin:Admin123@192.168.0.25:554/Streaming/Channels/${total}01`,
+            //streamUrl: 'rtsp://184.72.239.149/vod/mp4:BigBuckBunny_115k.mov',
+            streamUrl: `rtsp://admin:Admin123@192.168.0.25:554/Streaming/Channels/${total}01`,
             wsPort: 9000 + total,
             ffmpegOptions: { // options ffmpeg flags
               '-stats': '', 
