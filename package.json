@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "keywords": [],
   "author": "",
@@ -12,6 +14,9 @@
   "dependencies": {
     "express": "^4.17.1",
     "ffmpeg": "0.0.4",
+    "forever-monitor": "^1.7.1",
+    "forever-service": "^0.5.11",
+    "node-cron": "^2.0.3",
     "node-rtsp-stream": "0.0.8",
     "websocket": "^1.0.29"
   }
