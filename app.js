@@ -1,34 +1,36 @@
-const cluster = require('cluster');
 const os = require('os');
-const Streams = require('./stream');
-const watchdog = require('./watchdog');
-const reboot = require('./reboot');
+const fs = require('fs');
+const { exec } = require('child_process');
 
-const slave_cores = os.cpus().length - 1;
+const Streams = require('./stream');
+const reboot = require('./reboot');
 
 if(os.cpus().length < 2) {
   console.log('This application requires at least 2 cores to function properly.');
   process.exit(0);
 };
 
-// WatchDog
-if(cluster.isMaster) {
-  reboot.start();
-  for(let i = 0 ; i < (slave_cores < Streams.getLength() ? slave_cores : Streams.getLength()) ; i++) {
-    const worker = cluster.fork();
-    worker.send(i);
+// Stream
+console.log('Stream Process/es has started on pid: ' + process.pid);
+exec('pm2 prettylist', (err, stdout, stderr) => {
+  if(err) {
+    process.exit(0);
+  } else if (stdout) {
+    const list = eval(stdout);
+    let proc = list.filter((cur) => {
+      if(cur.pid === process.pid) {
+        return cur;
+      }
+    });
+    const id = proc[0].pm_id;
+    console.log(id);
+    const streams = new Streams(id + 1);
   }
-  watchdog();
-} else {
-  // Stream
-  console.log('Stream Process/es has started on pid: ' + process.pid);
-  process.on('message', (core_num) => {
-    const stream = new Streams(core_num);
-    const channels = stream.createStream();
-    const msg = 'Hey Watchdog I have just created a new stream for channel number ' + channels;
-    process.send(msg);
-  });
+});
+return;
+
+
   
-}
+
 
 

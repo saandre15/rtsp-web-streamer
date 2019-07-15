@@ -1,7 +1,7 @@
 const Stream = require('node-rtsp-stream');
 const os = require('os');
 const EventEmitter = require('events');
-const slave_cores = os.cpus().length - 1;
+const cpu_cores = os.cpus().length;
 
 module.exports = class Streams extends EventEmitter {
   constructor(core_num) {
@@ -21,9 +21,9 @@ module.exports = class Streams extends EventEmitter {
 
   createStream () {
     let arr = [];
-    const remainder = this.length % slave_cores;
-    const fixed = parseFloat((this.length / slave_cores).toFixed(0))
-    for(let i = 0 ; i < slave_cores ; i++) {
+    const remainder = this.length % cpu_cores;
+    const fixed = parseFloat((this.length / cpu_cores).toFixed(0))
+    for(let i = 0 ; i < cpu_cores ; i++) {
       if(remainder && i === 0) {
         arr.push(fixed + remainder);
       } else {
