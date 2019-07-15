@@ -30,7 +30,6 @@ module.exports = class Streams extends EventEmitter {
         arr.push(fixed);
       }
     }
-    console.log(arr);
     let value = 0;
     let newArr = [];
     arr.forEach((cur, index) => {
@@ -40,7 +39,6 @@ module.exports = class Streams extends EventEmitter {
         for(let i = 0 ; i < cur ; i++) {
           let total = value + i;
           total = this.aval_streams[total];
-          console.log(total);
           newArr.push(total);
           const channel = new Stream({
             name: `channel_${total}`,

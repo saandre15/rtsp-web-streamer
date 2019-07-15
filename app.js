@@ -23,8 +23,9 @@ exec('pm2 prettylist', (err, stdout, stderr) => {
       }
     });
     const id = proc[0].pm_id;
-    console.log(id);
-    const streams = new Streams(id + 1);
+    console.log(id)
+    const streams = new Streams(id);
+    streams.createStream();
   }
 });
 return;
