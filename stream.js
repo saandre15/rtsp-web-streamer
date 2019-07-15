@@ -40,6 +40,7 @@ module.exports = class Streams extends EventEmitter {
           let total = value + i;
           total = this.aval_streams[total];
           newArr.push(total);
+          console.log(9000 + total);
           const channel = new Stream({
             name: `channel_${total}`,
             //streamUrl: 'rtsp://184.72.239.149/vod/mp4:BigBuckBunny_115k.mov',
@@ -59,6 +60,7 @@ module.exports = class Streams extends EventEmitter {
         }
       }
     });
+    console.log('Channel ' + newArr + ' is now streaming');
     return newArr;
   }
 }
