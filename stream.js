@@ -6,7 +6,7 @@ const slave_cores = os.cpus().length - 1;
 module.exports = class Streams extends EventEmitter {
   constructor(core_num) {
     super();
-    this.aval_streams = [2,3,4,5,6,7,8,9,17];
+    this.aval_streams = [2,3,4,5,6,7,8,9,10];
     this.length = this.aval_streams.length;
     this.core_num = core_num;
     this.createStream = this.createStream.bind(this);
