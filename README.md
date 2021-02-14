@@ -1,4 +1,4 @@
-# rtsp_web_streamer
+# RTSP Web Streamer
 A multi-core rtsp to websocket converter.
 
 ## How to use?
