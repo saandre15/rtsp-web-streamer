@@ -1,9 +1,12 @@
 const os = require('os');
 const fs = require('fs');
 const { exec } = require('child_process');
+const dotenv = require("dotenv");
 
 const Streams = require('./stream');
 const reboot = require('./reboot');
+
+dotenv.config();
 
 if(os.cpus().length < 2) {
   console.log('This application requires at least 2 cores to function properly.');
@@ -27,7 +30,6 @@ exec('pm2 prettylist', (err, stdout, stderr) => {
     streams.createStream();
   }
 });
-return;
 
 
   

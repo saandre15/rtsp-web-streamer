@@ -10,5 +10,5 @@ module.exports = cron.schedule('0 0 1 * * * ', () => {
   })
 
 }, {
-  timezone: 'America/Chicago'
+  timezone: process.env.TIMEZONE
 });

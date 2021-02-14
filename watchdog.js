@@ -16,7 +16,7 @@ module.exports = () => {
     if(msg === 'exit') {
       cluster.removeAllListeners('disconnect');
       for(let id in cluster.workers) {
-        console.log('Worker ' + cluster.workers[id].id + ' is currently being killed');
+        console.log('Worker ' + cluster.workers[id].id + ' is currently being disconnected');
         cluster.workers[id].kill();
       }
       process.exit(0);
